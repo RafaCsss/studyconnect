@@ -23,12 +23,40 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $universities = [
+            'Universidad Nacional Mayor de San Marcos',
+            'Universidad de Lima',
+            'Pontificia Universidad Católica del Perú',
+            'Universidad Nacional de Ingeniería',
+            'Universidad Peruana de Ciencias Aplicadas',
+            'Universidad San Martín de Porres',
+            'Universidad Ricardo Palma'
+        ];
+
+        $careers = [
+            'Ingeniería de Sistemas',
+            'Medicina',
+            'Derecho',
+            'Administración',
+            'Psicología',
+            'Arquitectura',
+            'Contabilidad',
+            'Marketing',
+            'Ingeniería Civil',
+            'Comunicaciones'
+        ];
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'avatar' => null, // Por ahora null, luego se puede agregar lógica para imágenes
+            'bio' => fake()->optional(0.7)->sentence(rand(10, 20)),
+            'university' => fake()->randomElement($universities),
+            'career' => fake()->randomElement($careers),
+            'semester' => fake()->numberBetween(1, 10),
         ];
     }
 
